@@ -1,0 +1,46 @@
+{
+    "name": "env-symbol-provider",
+    "displayName": "Env Symbol Provider",
+    "description": "Env files Symbol Provider",
+    "version": "0.0.1",
+    "publisher": "ctf0",
+    "repository": "https://github.com/ctf0/env-symbol-provider",
+    "icon": "img/icon.png",
+    "engines": {
+        "vscode": "^1.52.0"
+    },
+    "categories": [
+        "Other",
+        "Programming Languages"
+    ],
+    "main": "./out/src/extension.js",
+    "activationEvents": [
+        "onUri",
+        "onLanguage:env",
+        "onStartupFinished"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "env",
+                "extensions": [
+                    ".env"
+                ]
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile",
+        "test": "node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "typescript": "^4.6.3",
+        "@types/vscode": "^1.52.0",
+        "tslint": "^5.20.1",
+        "@types/node": "^17.0.23",
+        "@types/mocha": "^9.1.0"
+    }
+}
