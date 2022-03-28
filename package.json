@@ -15,7 +15,6 @@
     ],
     "main": "./out/src/extension.js",
     "activationEvents": [
-        "onUri",
         "onLanguage:env",
         "onStartupFinished"
     ],
