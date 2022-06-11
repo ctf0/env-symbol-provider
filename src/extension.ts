@@ -17,7 +17,7 @@ class DynamicSymbolProvider implements vscode.DocumentSymbolProvider {
         for (let line = 0; line < document.lineCount; line++) {
             const { text } = document.lineAt(line)
 
-            let reg = new RegExp('(([a-zA-Z0-9]+[_-]?)+)(?=\=)', 'g').exec(text)
+            let reg = new RegExp('^(([a-zA-Z0-9]+[_-]?)+)(?=\=)', 'g').exec(text)
 
             if (reg !== null) {
                 let envKey = reg[1]

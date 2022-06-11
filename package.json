@@ -2,7 +2,7 @@
     "name": "env-symbol-provider",
     "displayName": "Env Symbol Provider",
     "description": "Env files Symbol Provider",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "ctf0",
     "repository": "https://github.com/ctf0/env-symbol-provider",
     "icon": "img/icon.png",
