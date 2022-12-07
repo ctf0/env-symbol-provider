@@ -8,3 +8,7 @@
 
 - cleanUp
 - fix not working correctly with files that have large comment block "ex.symfony"
+
+## 0.0.3
+
+- fix incorrect key char range

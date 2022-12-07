@@ -3,7 +3,7 @@ import * as vscode from 'vscode'
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(
         vscode.languages.registerDocumentSymbolProvider(
-            {language: "env"}, new DynamicSymbolProvider()
+            { language: "env" }, new DynamicSymbolProvider()
         )
     )
 }
@@ -30,8 +30,10 @@ class DynamicSymbolProvider implements vscode.DocumentSymbolProvider {
                         extractTag ? extractTag[0] : envKey,
                         new vscode.Location(
                             document.uri,
-                            new vscode.Range(new vscode.Position(line,0),
-                            new vscode.Position(line,text.length - 1))
+                            new vscode.Range(
+                                new vscode.Position(line, 0),
+                                new vscode.Position(line, text.length)
+                            )
                         )
                     )
                 )
