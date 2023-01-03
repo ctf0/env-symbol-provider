@@ -3,7 +3,7 @@ import * as vscode from 'vscode'
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(
         vscode.languages.registerDocumentSymbolProvider(
-            { language: "env" }, new DynamicSymbolProvider()
+            ['env', 'dotenv'], new DynamicSymbolProvider()
         )
     )
 }
@@ -44,5 +44,4 @@ class DynamicSymbolProvider implements vscode.DocumentSymbolProvider {
     }
 }
 
-// this method is called when your extension is deactivated
 export function deactivate() { }
