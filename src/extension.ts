@@ -1,47 +1,24 @@
 import * as vscode from 'vscode'
+import HoverProvider from './Providers/Hover'
+import SymbolProvider from './Providers/Symbol'
+import * as util from './util'
+
+const langs = ['env', 'dotenv']
 
 export function activate(context: vscode.ExtensionContext) {
+    util.readConfig()
+
     context.subscriptions.push(
-        vscode.languages.registerDocumentSymbolProvider(
-            ['env', 'dotenv'], new DynamicSymbolProvider()
-        )
-    )
-}
-
-class DynamicSymbolProvider implements vscode.DocumentSymbolProvider {
-
-    public provideDocumentSymbols(document: vscode.TextDocument): vscode.SymbolInformation[] {
-
-        const result: vscode.SymbolInformation[] = []
-
-        for (let line = 0; line < document.lineCount; line++) {
-            const { text } = document.lineAt(line)
-
-            let reg = new RegExp('^(([a-zA-Z0-9]+[_-]?)+)(?=\=)', 'g').exec(text)
-
-            if (reg !== null) {
-                let envKey = reg[1]
-                let extractTag = /[a-zA-Z0-9]+(?=[_-])/.exec(envKey)
-
-                result.push(
-                    new vscode.SymbolInformation(
-                        envKey,
-                        vscode.SymbolKind.Key,
-                        extractTag ? extractTag[0] : envKey,
-                        new vscode.Location(
-                            document.uri,
-                            new vscode.Range(
-                                new vscode.Position(line, 0),
-                                new vscode.Position(line, text.length)
-                            )
-                        )
-                    )
-                )
+        // config
+        vscode.workspace.onDidChangeConfiguration(async(e) => {
+            if (e.affectsConfiguration(util.PACKAGE_NAME)) {
+                util.readConfig()
             }
-        }
-
-        return result
-    }
+        }),
+        // providers
+        vscode.languages.registerDocumentSymbolProvider(langs, new SymbolProvider()),
+        vscode.languages.registerHoverProvider(langs, new HoverProvider()),
+    )
 }
 
 export function deactivate() { }

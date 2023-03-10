@@ -1,49 +1,76 @@
 {
-    "name": "env-symbol-provider",
-    "displayName": "Env Symbol Provider",
-    "description": "Env files Symbol Provider",
-    "version": "0.0.4",
-    "publisher": "ctf0",
-    "repository": "https://github.com/ctf0/env-symbol-provider",
-    "icon": "img/icon.png",
-    "engines": {
-        "vscode": "^1.52.0"
-    },
+    "activationEvents": [
+        "onStartupFinished"
+    ],
     "categories": [
         "Other",
         "Programming Languages"
     ],
-    "main": "./out/main",
-    "activationEvents": [
-        "onStartupFinished"
-    ],
     "contributes": {
+        "configuration": {
+            "properties": {
+                "envSymbolProvider.referenceSearchExclude": {
+                    "default": [
+                        "node_modules",
+                        "coverage",
+                        "dist",
+                        "build",
+                        "vendor",
+                        "storage",
+                        "public",
+                        "stubs",
+                        ".git",
+                        ".history",
+                        ".idea"
+                    ],
+                    "description": "folders to exclude from reference search",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "type": "array",
+                    "uniqueItems": true
+                }
+            },
+            "title": "Env Symbol Provider"
+        },
         "languages": [
             {
-                "id": "env",
                 "extensions": [
                     ".env"
-                ]
+                ],
+                "id": "env"
             },
             {
-                "id": "dotenv",
                 "extensions": [
                     ".env"
-                ]
+                ],
+                "id": "dotenv"
             }
         ]
     },
+    "description": "Env files Symbol Provider",
+    "devDependencies": {
+        "@types/node": "^24.5.2",
+        "@types/vscode": "^1.90.0",
+        "esbuild": "^0.25.10",
+        "typescript": "^5.9.2"
+    },
+    "displayName": "Env Symbol Provider",
+    "engines": {
+        "vscode": "^1.90.0"
+    },
+    "icon": "img/icon.png",
+    "main": "./out/main",
+    "name": "env-symbol-provider",
+    "publisher": "ctf0",
+    "repository": "https://github.com/ctf0/env-symbol-provider",
     "scripts": {
-        "vscode:prepublish": "npm run esbuild-base -- --pure:console.log --minify",
-        "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
         "esbuild": "npm run esbuild-base -- --sourcemap",
+        "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
         "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+        "vscode:prepublish": "npm run esbuild-base -- --pure:console.log --minify",
         "watch": "npm run esbuild"
     },
-    "devDependencies": {
-        "typescript": "^4.9.5",
-        "@types/vscode": "^1.52.0",
-        "@types/node": "^18.13.0",
-        "esbuild": "^0.17.8"
-    }
+    "version": "0.0.5"
 }
